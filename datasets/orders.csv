@@ -1,0 +1,12 @@
+order_id,customer_id,product,category,city,quantity,price,order_date
+1001,C101,Laptop,Electronics,Bangalore,1,75000,2026-09-01
+1002,C102,Phone,Electronics,mumbai,2,32000,2026-09-01
+1003,C103,Shoes,Fashion, Delhi,1,4500,2026-09-02
+1004,C101,Headphones,Electronics,BANGALORE,2,2500,2026-09-03
+1005,C104,T-Shirt,Fashion,Pune,3,1200,2026-09-03
+1006,C105,TV,Electronics,Chennai,1,54000,2026-09-04
+1006,C105,TV,Electronics,Chennai,1,54000,2026-09-04
+1007,C106,Book,Books,Bangalore,-5,500,2026-09-04
+1008,C102,Watch,Fashion,Mumbai,1,,2026-09-05
+1009,C107,Tablet,Electronics,Hyderabad,2,28000,2026-09-05
+1010,C108,Keyboard,Electronics,Bangalore,4,1800,2026-09-06
