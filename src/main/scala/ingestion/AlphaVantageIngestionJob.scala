@@ -1,7 +1,7 @@
 package com.myra.invest
 package ingestion
 
-import config.ApiConfig
+import config.{ApiConfig, TableNames}
 import model.StockPrice
 import utils.HttpClient
 
@@ -47,6 +47,6 @@ object AlphaVantageIngestionJob {
     stockDf.write
       .format("delta")
       .mode("overwrite")
-      .save("datasets/bronze/live_stock_prices")
+      .saveAsTable(TableNames.bronzeStockTable)
   }
 }

@@ -91,3 +91,10 @@ Transform Bronze stock market data into clean analytical data.
 * Silver enforces business quality rules.
 * Partitioning improves query performance.
 * Logging is essential for production Spark jobs.
+
+
+What did I learn technically?
+
+What production concept did I learn?
+
+What interview question can I now answer confidently?
