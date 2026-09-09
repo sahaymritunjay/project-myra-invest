@@ -13,7 +13,8 @@ lazy val root = rootProject
       "io.circe" %% "circe-core" % "0.14.15",
       "io.circe" %% "circe-parser" % "0.14.15",
       // Delta Lake
-      "io.delta" %% "delta-spark" % "3.2.1"
+      "io.delta" %% "delta-spark" % "3.2.1",
+      "com.typesafe" % "config" % "1.4.3"
 
     ),
     run / javaOptions += "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED",
