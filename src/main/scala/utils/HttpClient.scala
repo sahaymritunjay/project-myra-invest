@@ -2,50 +2,47 @@ package com.myra.invest
 package utils
 
 import java.net.{HttpURLConnection, URL}
+import java.nio.charset.StandardCharsets
 import scala.io.Source
 
 object HttpClient {
 
-  def get(url: String, retryCount:Int = 1): String = {
+  def get(url: String): String = {
 
-    var attempt = 0;
+    val connection =
+      new URL(url).openConnection().asInstanceOf[HttpURLConnection]
 
-    while(attempt <= retryCount)
-      {
-        try
-        {
-          val connection = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
-          connection.setRequestMethod("GET")
-          connection.setRequestProperty("User-Agent","Project-Myra-Invest/1.0")
-          connection.setConnectTimeout(10000)
-          connection.setReadTimeout(15000)
-          val responseCode = connection.getResponseCode
+    connection.setRequestMethod("GET")
 
-          responseCode match {
-            case 200 => val response = Source.fromInputStream(connection.getInputStream).mkString
-            connection.disconnect()
-            return response
+    connection.setConnectTimeout(10000)
+    connection.setReadTimeout(15000)
 
-            case 429 =>
-              connection.disconnect()
-              throw new RuntimeException("Alphavantage rate limit Exceeded.. Wait")
+    connection.setRequestProperty(
+      "User-Agent",
+      "Project-Myra-Invest/1.0"
+    )
 
-            case code =>
-              connection.disconnect()
-              throw new RuntimeException(s"HTTP request failed with status code $code")
-          }
+    val responseCode = connection.getResponseCode
 
-        }catch {
-          case ex: Exception =>
-            attempt +=1
-            if(attempt > retryCount)
-              throw new RuntimeException(s"Failed after ${retryCount + 1} attempts : ${ex.getMessage}")
-              println(s"Retrying request... Attempt $attempt")
-            Thread.sleep(3000)
-        }
-      }
-    throw new RuntimeException("Unexpected HTTP Failure.")
+    responseCode match {
 
+      case 200 =>
+        val response =
+          Source.fromInputStream(
+            connection.getInputStream,
+            StandardCharsets.UTF_8.name()
+          ).mkString
+
+        connection.disconnect()
+        response
+
+      case code =>
+        connection.disconnect()
+
+        throw new RuntimeException(
+          s"HTTP Request Failed. Status Code = $code"
+        )
+    }
   }
 
 }
