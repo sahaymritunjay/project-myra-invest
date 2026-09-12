@@ -17,7 +17,7 @@ lazy val root = rootProject
       "com.typesafe" % "config" % "1.4.3",
 
       // JSON parsing
-      "org.json4s" %% "json4s-native" % "4.0.7",
+      "org.json4s" %% "json4s-core" % "4.0.7",
       "org.json4s" %% "json4s-jackson" % "4.0.7"
 
     ),

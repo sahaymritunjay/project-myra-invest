@@ -3,9 +3,11 @@ package news
 
 import config.NewsApiConfig
 
+import com.myra.invest.bronze.NewsBronzeWriter
 import com.myra.invest.model.StockNews
 import com.myra.invest.parser.NewsApiParser
 import com.myra.invest.utils.HttpClient
+import org.apache.spark.sql.SparkSession
 
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -74,12 +76,21 @@ object NewsIngestionJob {
     println("PROJECT MYRA - LIVE NEWS INGESTION")
     println("==============================================")
 
+    val spark = SparkSession.builder()
+      .appName("Bronze News")
+      .master("local[*]")
+      .getOrCreate()
+
+    spark.sparkContext.setLogLevel("ERROR")
+
     val news = fetchNews()
 
     printArticles(news)
 
+    NewsBronzeWriter.write(spark, news)
+
     println()
-    println("Sprint 11 Day 2 completed successfully.")
+    println("Sprint 11 Day 3 completed successfully.")
   }
 
 }
